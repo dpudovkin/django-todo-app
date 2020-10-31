@@ -1,0 +1,11 @@
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        <!-- Below line is added to push the "next" attribute into request. -->
+        <input type="hidden" name="next" value="{{ request.GET.next }}">
+        {{form.as_p}}
+        <button type="submit">Sign In</button>
+    </form>
+
+    <p>If you don't have an account <a href="{% url 'register' %}" target="blank"><strong>register</strong></a> instead.</p>
+</div>
