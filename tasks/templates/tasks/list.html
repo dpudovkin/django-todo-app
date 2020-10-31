@@ -49,6 +49,8 @@
 
 
 <div class="center-column">
+	<a class="btn btn-sm btn-info" style="color: white" href="/logout">Logout</a>
+
     <form method="POST" action="/">
         {% csrf_token %}
         {{ form.title }}
