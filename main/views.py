@@ -15,7 +15,7 @@ def register(request):
             username = form.cleaned_data.get("username")
             messages.success(request, f"New account created: {username}.")
             login(request, user)
-            return redirect("/")
+            return redirect('tasks:list')
 
         else:
             for msg in form.error_messages:
@@ -45,9 +45,9 @@ def signin(request):
                 login(request, user)
                 messages.success(request, f"You are now logged in as {username}.")
                 if request.POST.get('next') == '':
-                    return redirect('/')
+                    return redirect('tasks:list')
                 else:
-                    return redirect(request.POST.get('next', '/'))
+                    return redirect(request.POST.get('next', 'tasks:list'))
             else:
                 messages.error(request, "Invalid username or password.")
         else:
@@ -63,4 +63,4 @@ def signin(request):
 def signout(request):
     logout(request)
     messages.info(request, "Logged out successfully!")
-    return redirect("/login")
+    return redirect('main:login')

@@ -49,9 +49,9 @@
 
 
 <div class="center-column">
-	<a class="btn btn-sm btn-info" style="color: white" href="/logout">Logout</a>
+	<a class="btn btn-sm btn-info" style="color: white" href="{% url 'main:logout' %}">Logout</a>
 
-    <form method="POST" action="/">
+	<form method="POST" action="{% url 'tasks:list' %}">
         {% csrf_token %}
         {{ form.title }}
         <input type="submit" name="Create Task">
@@ -60,8 +60,8 @@
     <div class="todo-list">
         {% for task in tasks %}
         <div class="item-row">
-            <a class="btn btn-sm btn-info" href="{% url 'update_task' task.id %}">Update</a>
-            <a class="btn btn-sm btn-danger" href="{% url 'delete_task' task.id %}">Delete</a>
+            <a class="btn btn-sm btn-info" href="{% url 'tasks:update_task' task.id %}">Update</a>
+            <a class="btn btn-sm btn-danger" href="{% url 'tasks:delete_task' task.id %}">Delete</a>
 
             {% if task.complete == True %}
             <strike>{{ task }}</strike>
