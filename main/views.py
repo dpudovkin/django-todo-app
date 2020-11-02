@@ -44,7 +44,10 @@ def signin(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f"You are now logged in as {username}.")
-                return redirect(request.POST.get('next', '/'))
+                if request.POST.get('next') == '':
+                    return redirect('/')
+                else:
+                    return redirect(request.POST.get('next', '/'))
             else:
                 messages.error(request, "Invalid username or password.")
         else:
