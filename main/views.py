@@ -14,53 +14,15 @@ def register(request):
             user = form.save()
             username = form.cleaned_data.get("username")
             messages.success(request, f"New account created: {username}.")
-            login(request, user)
             return redirect('tasks:list')
 
         else:
             for msg in form.error_messages:
                 messages.error(request, f"{msg}: {form.error_messages[msg]}")
-            return render(
-                request=request,
-                template_name="main/register.html",
-                context={"form": form}
-            )
 
-    form = UserCreationForm
+    form = UserCreationForm()
     return render(
         request=request,
         template_name="main/register.html",
         context={"form": form}
     )
-
-
-def signin(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request=request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, f"You are now logged in as {username}.")
-                if request.POST.get('next') == '':
-                    return redirect('tasks:list')
-                else:
-                    return redirect(request.POST.get('next', 'tasks:list'))
-            else:
-                messages.error(request, "Invalid username or password.")
-        else:
-            messages.error(request, "Invalid username or password.")
-
-    form = AuthenticationForm
-    return render(
-        request=request,
-        template_name="main/login.html",
-        context={"form": form}
-    )
-
-def signout(request):
-    logout(request)
-    messages.info(request, "Logged out successfully!")
-    return redirect('main:login')

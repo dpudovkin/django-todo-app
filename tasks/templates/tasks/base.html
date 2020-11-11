@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>To-Do App</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'main:logout' %}">Logout</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <div>
+            {% if messages %}
+                {% for message in messages %}
+                <div>
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+
+            {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

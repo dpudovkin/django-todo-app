@@ -1,33 +1,33 @@
-{% load static %}
-<html>
-<head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" href="{% static 'css/base.css' %}">
-</head>
-<body>
-<div class="center-column">
-	<a class="btn btn-sm btn-info" style="color: white" href="{% url 'main:logout' %}">Logout</a>
-
+{% extends 'tasks/base.html' %}
+{% block content %}
+<div>
 	<form method="POST" action="{% url 'tasks:list' %}">
         {% csrf_token %}
         {{ form.title }}
         <input type="submit" name="Create Task">
     </form>
 
-    <div class="todo-list">
+    <div>
         {% for task in tasks %}
-        <div class="item-row">
-            <a class="btn btn-sm btn-info" href="{% url 'tasks:update_task' task.id %}">Update</a>
-            <a class="btn btn-sm btn-danger" href="{% url 'tasks:delete_task' task.id %}">Delete</a>
+        <div>
+            <a href="{% url 'tasks:update_task' task.id %}">Update</a>
+            <a href="{% url 'tasks:delete_task' task.id %}">Delete</a>
 
             {% if task.complete == True %}
-            <strike>{{ task }}</strike>
+                <strike>{{ task }}</strike>
             {% else %}
-            <span>{{ task }}</span>
+                <span>{{ task }}</span>
             {% endif %}
         </div>
         {% endfor %}
+
+        </div>
+            <h3>Task Lists</h3>
+            <ul>
+                
+            </ul>
+            </p>
+        </div>
     </div>
 </div>
-</body>
-</html>
+{% endblock content %}

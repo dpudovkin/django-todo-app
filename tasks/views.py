@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -30,6 +31,7 @@ def update_task(request, pk):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid:
             form.save()
+            messages.success(request, "Task has been successfully updated!")
             return redirect('tasks:list')
 
     context = {'form': form}
@@ -42,6 +44,7 @@ def delete_task(request, pk):
 
     if request.method == "POST":
         task.delete()
+        messages.success(request, "Task has been successfully deleted!")
         return redirect('tasks:list')
     
     context = {'task': task}

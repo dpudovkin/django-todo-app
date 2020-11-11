@@ -126,7 +126,4 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
-# Change default login url
-LOGIN_URL = "/login"
-# Change default logout url
-LOGOUT_URL = "/logout"
+LOGIN_REDIRECT_URL = 'tasks:list'
